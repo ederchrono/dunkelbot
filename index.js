@@ -1,11 +1,19 @@
-var Botkit = require('botkit');
+var Bot = require('slackbots');
 
-var controller = Botkit.slackbot(configuration);
+// create a bot
+var settings = {
+    token: process.env.SLACK_TOKEN,
+    name: 'Hello bot'
+};
+var bot = new Bot(settings);
 
+bot.on('start', function() {
+    bot.postMessageToChannel('some-channel-name', 'Hello channel!');
+    bot.postMessageToUser('some-username', 'hello bro!');
+    bot.postMessageToGroup('some-private-group', 'hello group chat!');
+});
 
-// give the bot something to listen for.
-controller.hears('hello',['direct_message','direct_mention','mention'],function(bot,message) {
-
-  bot.reply(message,'Hello yourself.');
-
+bot.on('message', function(data) {
+    // all ingoing events https://api.slack.com/rtm 
+    console.log(data);
 });

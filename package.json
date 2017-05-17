@@ -13,7 +13,6 @@
   "author": "Eder Díaz",
   "license": "ISC",
   "dependencies": {
-    "@slack/client": "^3.9.0",
-    "botkit": "^0.5.4"
+    "slackbots": "^1.0.2"
   }
 }
