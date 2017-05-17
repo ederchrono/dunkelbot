@@ -1,3 +1,17 @@
+//db config
+var mongoose = require('mongoose');
+var mongo_url = process.env.MONGODB_URI ? process.env.MONGODB_URI : 'mongodb://localhost/test';
+mongoose.connect(mongo_url);
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', () => {
+    // we're connected!
+    console.log("Mongoose connected successfully");
+});
+mongoose.Promise = global.Promise;
+
+var DunkelbotCommand = require('./schemas/dunkel_aprende_schema');
+
 var Bot = require('slackbots');
 
 // create admin
@@ -29,8 +43,8 @@ bot.on('message', function (data) {
     if (isMessage && !isBot) {
 
 
-        var message ="";
-        if(data.text)
+        var message = "";
+        if (data.text)
             message = data.text.toLowerCase();
 
         var response = null;
@@ -47,23 +61,31 @@ bot.on('message', function (data) {
                 break;
         }
 
-        if(data.text==undefined)
+        if (data.text == undefined)
             return;
 
         var botCommands = data.text.split(" ");
-        if(botCommands[0]=="chrobot"){
+        if (botCommands[0] == "chrobot") {
             var command = botCommands[1];
-            botCommands.splice(0,2);
+            botCommands.splice(0, 2);
             chronoCommand(data.channel, command, botCommands.join(' '));
-        }else if(botCommands[0]=="<@U5F6MCKM4>"){
+        } else if (botCommands[0] == "<@U5F6MCKM4>") {
             //dunkelbot
             var command = botCommands[1];
-            botCommands.splice(0,2);
-            if(command=="echo")
+            botCommands.splice(0, 2);
+            if (command == "echo") {
                 response = botCommands.join(' ');
-            if(command=='azazel')
+            }
+            else if (command == 'azazel') {
                 response = ":azazel::slowbody:";
-                
+            }
+            else if (command == 'aprende') {
+                response = saveDunkelCommand(botCommands.join(' '));
+            }
+            else {
+                // possible dunkel aprende command
+                response = getDunkelCommand(command + ' ' + botCommands.join(' '));
+            }
         }
 
         if (response !== null) {
@@ -74,28 +96,57 @@ bot.on('message', function (data) {
     }
 });
 
-function chronoCommand(channel, chronoCommand, text){
+function getDunkelCommand(command) {
+    var query = {};
+    var fields = {
+        key: command
+    };
+    DunkelbotCommand.find(query).select(fields).exec((err, data) => {
+
+        if (err) {
+            return null;
+        }
+
+        console.log(data);
+        return 'Encontré algo en la DB';
+    });
+}
+
+function saveDunkelCommand(text) {
+    var params = text.split(',');
+    if (params.length != 2) {
+        return 'ya nada, debes usar `@dunkelbot aprende key,value`';
+    }
+    var command = new DunkelbotCommand();
+    command.key = params[0];
+    command.value = params[1];
+    command.save();
+
+    return 'Aprendí algo nuevo... o fue el señor Delgadillo?'
+}
+
+function chronoCommand(channel, chronoCommand, text) {
     var command = null;
-    switch(chronoCommand){
+    switch (chronoCommand) {
         case 'topic':
-            command='/topic'
+            command = '/topic'
             break;
         case 'gif':
-            command='/giphy'
+            command = '/giphy'
             break;
     }
 
-    if(command!=null){
+    if (command != null) {
         // slash commands hidden api!
-        admin._api('chat.command',{
+        admin._api('chat.command', {
             channel: channel,
             command: command,
             text: text
-        }).fail(function(data) {
+        }).fail(function (data) {
             console.log('Command error:');
             console.log(data);
-        }).then(function(data) {
-            console.log('Command success:');            
+        }).then(function (data) {
+            console.log('Command success:');
             console.log(data);
         })
     }
