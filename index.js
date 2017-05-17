@@ -3,7 +3,8 @@ var Bot = require('slackbots');
 // create a bot
 var settings = {
     token: process.env.SLACK_TOKEN,
-    // name: 'Dunkelbot'
+    name: 'Dunkelbot',
+    as_user: true
 };
 var bot = new Bot(settings);
 
@@ -30,6 +31,7 @@ bot.on('message', function(data) {
             case "yo no fui":
                 response = "tu bien sabes quien fue";
                 break;
+            case "te digo quien fue?":
             case "te digo quien fue":
                 response = "no we, no me digas";
                 break;
@@ -41,3 +43,11 @@ bot.on('message', function(data) {
 
     }
 });
+
+// bind express app so process doesn't get killed by heroku
+var app = express();
+var port = process.env.PORT || 8000;
+var http = require('http').Server(app);
+http.listen(port); //Listen on the specified port
+console.log('Listening on port ' + port); //Write to the console
+
