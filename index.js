@@ -3,7 +3,6 @@ var Bot = require('slackbots');
 // create a bot
 var settings = {
     token: process.env.SLACK_TOKEN,
-    // name: 'Dunkelbot',
     as_user: true
 };
 var bot = new Bot(settings);
