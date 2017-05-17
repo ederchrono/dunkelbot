@@ -47,31 +47,13 @@ bot.on('message', function (data) {
                 break;
         }
 
-        // no lower case for topics
-        var message = data.text;
-        console.log(message);
-
-        if (message.substring(0, 19) == "<@U5F6MCKM4> topic ") {
-            var command = "/topic";
-            var newTopic = message.substring(19);
-
-            // console.log("sending command: ");
-            // console.log("channel: "+data.channel);
-            // console.log("command: "+command);
-            // console.log("text: "+newTopic);
-
-            // slash commands hidden api!
-            admin._api('chat.command',{
-                channel: data.channel,
-                command: command,
-                text: newTopic
-            }).fail(function(data) {
-                console.log('Command error:');
-                console.log(data);
-            })
-
-            bot.postMessage(data.channel, "Como ordene maestro",  settings);
+        var botCommands = data.text.split(" ");
+        if(botCommands[0]=="chronobot"){
+            var command = botCommands[1];
+            var text = botCommands.splice(0,2);
+            chronoCommand(command,text.join(' '));
         }
+
         if (response !== null) {
             console.log(data);
             bot.postMessage(data.channel, response, settings);
@@ -79,6 +61,25 @@ bot.on('message', function (data) {
 
     }
 });
+
+function chronoCommand(command, text){
+
+
+    // if (message.substring(0, 19) == "<@U5F6MCKM4> topic ") {
+    if(command=="topic"){
+        var command = "/topic";
+
+        // slash commands hidden api!
+        admin._api('chat.command',{
+            channel: data.channel,
+            command: command,
+            text: text
+        }).fail(function(data) {
+            console.log('Command error:');
+            console.log(data);
+        })
+    }
+}
 
 // bind express app so process doesn't get killed by heroku
 var express = require('express');
