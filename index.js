@@ -121,6 +121,11 @@ function saveDunkelCommand(text) {
         return 'ya nada, debes usar `@dunkelbot aprende key,value`';
     }
     var command = new DunkelbotCommand();
+    var words = params[0].split(" ").length;
+
+    keyPhrase = params[0];    
+    if(words==1)
+        keyPhrase = params[0]+' ';
     command.keyPhrase = params[0];
     command.content = params[1];
     command.save();
