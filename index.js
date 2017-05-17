@@ -42,7 +42,8 @@ bot.on('message', function(data) {
         console.log(data);
 
         if(message.substring(0,18) == "<@U5F6MCKM4> topic "){
-                response = "/topic "+message.substring(18);
+            response = "/topic "+message.substring(18);
+            console.log(response);
         }
 
         if(response!==null){
