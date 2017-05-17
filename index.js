@@ -99,16 +99,19 @@ bot.on('message', function (data) {
 function getDunkelCommand(channel, command) {
 
     console.log("looking for command: "+command);
-    DunkelbotCommand.findOne({keyPhrase:command}).exec( (err, data) => {
+    DunkelbotCommand.find({keyPhrase:command}).exec( (err, data) => {
 
         if (err) {
             return;
         }
 
-        console.log(data);
-        if(data){
+        var numResp = data.length;
+        console.log(numResp + ' respuestas posibles');
+
+        if(numResp>0){
+            var respIndex = Math.floor(Math.random()*numResp);
             // console.log(data[0]);
-            response = data.content;
+            response = data[respIndex].content;
             bot.postMessage(channel, response, settings);
         }
 
