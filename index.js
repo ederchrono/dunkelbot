@@ -84,7 +84,7 @@ bot.on('message', function (data) {
             }
             else {
                 // possible dunkel aprende command
-                response = getDunkelCommand(command + ' ' + botCommands.join(' '));
+                getDunkelCommand(data.channel, command + ' ' + botCommands.join(' '));
             }
         }
 
@@ -96,24 +96,26 @@ bot.on('message', function (data) {
     }
 });
 
-function getDunkelCommand(command) {
+function getDunkelCommand(channel, command) {
     var query = {};
     var fields = {
         key: command
     };
+
+    console.log("looking for command: "+command);
     DunkelbotCommand.find(query).select(fields).exec((err, data) => {
 
         if (err) {
-            return null;
+            return;
         }
 
         console.log(data);
         if(data.length!=0){
             console.log(data[0]);
-            return data[0].content;
+            response = data[0].content;
+            bot.postMessage(channel, response, settings);
         }
 
-        return null;
     });
 }
 
