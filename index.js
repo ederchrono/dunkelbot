@@ -45,6 +45,7 @@ bot.on('message', function(data) {
 });
 
 // bind express app so process doesn't get killed by heroku
+var express = require('express');
 var app = express();
 var port = process.env.PORT || 8000;
 var http = require('http').Server(app);
