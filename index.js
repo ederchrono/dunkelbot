@@ -19,6 +19,8 @@ bot.on('message', function(data) {
     var isBot = data.subtype === "bot_message";
     var isMe = data.username === settings.name;
 
+    console.log(data);         
+
     if( isMessage && !isBot && !isMe ){
 
         var response = null;
@@ -35,7 +37,6 @@ bot.on('message', function(data) {
         }
 
         if(response!==null){
-            console.log(data);            
             bot.postMessage(data.channel, response);            
         }
 
