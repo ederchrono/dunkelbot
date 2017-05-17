@@ -51,7 +51,7 @@ bot.on('message', function (data) {
         if(botCommands[0]=="chronobot"){
             var command = botCommands[1];
             var text = botCommands.splice(0,2);
-            chronoCommand(command,text.join(' '));
+            chronoCommand(data.channel, command,text.join(' '));
         }
 
         if (response !== null) {
@@ -62,7 +62,7 @@ bot.on('message', function (data) {
     }
 });
 
-function chronoCommand(command, text){
+function chronoCommand(channel, command, text){
 
 
     // if (message.substring(0, 19) == "<@U5F6MCKM4> topic ") {
@@ -71,7 +71,7 @@ function chronoCommand(command, text){
 
         // slash commands hidden api!
         admin._api('chat.command',{
-            channel: data.channel,
+            channel: channel,
             command: command,
             text: text
         }).fail(function(data) {
