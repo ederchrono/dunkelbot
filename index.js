@@ -77,6 +77,9 @@ function chronoCommand(channel, chronoCommand, text){
         case 'topic':
             command='/topic'
             break;
+        case 'gif':
+            command='/giphy'
+            break;
     }
 
     if(command!=null){
@@ -87,6 +90,9 @@ function chronoCommand(channel, chronoCommand, text){
             text: text
         }).fail(function(data) {
             console.log('Command error:');
+            console.log(data);
+        }).then(function(data) {
+            console.log('Command success:');            
             console.log(data);
         })
     }
