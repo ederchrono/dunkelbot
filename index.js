@@ -39,13 +39,14 @@ bot.on('message', function(data) {
 
         // no lower case for topics
         var message = data.text;
+        console.log(data);
 
         if(message.substring(0,17) == "@dunkelbot topic "){
                 response = "/topic "+message.substring(17);
         }
 
         if(response!==null){
-            console.log(data);            
+            //console.log(data);
             bot.postMessage(data.channel, response, settings);            
         }
 
