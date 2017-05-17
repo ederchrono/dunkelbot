@@ -17,6 +17,6 @@ bot.on('message', function(data) {
     // all ingoing events https://api.slack.com/rtm 
     if(data.type=="message"){
         console.log(data);
-        bot.postMessage(data.channel, 'Hola');
+        //bot.postMessage(data.channel, 'Hola');
     }
 });
