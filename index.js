@@ -107,10 +107,13 @@ function getDunkelCommand(command) {
             return null;
         }
 
-        // console.log(data);
+        console.log(data);
         if(data.length!=0){
+            console.log(data[0]);
             return data[0].content;
         }
+
+        return null;
     });
 }
 
