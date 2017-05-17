@@ -107,8 +107,10 @@ function getDunkelCommand(command) {
             return null;
         }
 
-        console.log(data);
-        return 'Encontré algo en la DB';
+        // console.log(data);
+        if(data.length!=0){
+            return data[0].content;
+        }
     });
 }
 
@@ -119,7 +121,7 @@ function saveDunkelCommand(text) {
     }
     var command = new DunkelbotCommand();
     command.key = params[0];
-    command.value = params[1];
+    command.content = params[1];
     command.save();
 
     return 'Aprendí algo nuevo... o fue el señor Delgadillo?'
