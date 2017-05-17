@@ -3,8 +3,8 @@ var Bot = require('slackbots');
 // create a bot
 var settings = {
     token: process.env.SLACK_TOKEN,
-    name: 'Dunkelbot',
-    as_user: false
+    // name: 'Dunkelbot',
+    as_user: true
 };
 var bot = new Bot(settings);
 
@@ -19,7 +19,6 @@ bot.on('message', function(data) {
     var isMessage = data.type ==="message";
     var isBot = data.subtype === "bot_message";
 
-    console.log(data);
 
     if( isMessage && !isBot ){
 
@@ -38,6 +37,7 @@ bot.on('message', function(data) {
         }
 
         if(response!==null){
+            console.log(data);            
             bot.postMessage(data.channel, response);            
         }
 
