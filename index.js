@@ -126,7 +126,7 @@ function saveDunkelCommand(text) {
     keyPhrase = params[0];    
     if(words==1)
         keyPhrase = params[0]+' ';
-    command.keyPhrase = params[0];
+    command.keyPhrase = keyPhrase;
     command.content = params[1];
     command.save();
 
