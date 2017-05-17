@@ -3,7 +3,7 @@ var Bot = require('slackbots');
 // create a bot
 var settings = {
     token: process.env.SLACK_TOKEN,
-    name: 'Bakman'
+    // name: 'Dunkelbot'
 };
 var bot = new Bot(settings);
 
@@ -20,7 +20,24 @@ bot.on('message', function(data) {
     var isMe = data.username === settings.name;
 
     if( isMessage && !isBot && !isMe ){
-        console.log(data);
-        bot.postMessage(data.channel, 'Hola');
+
+        var response = null;
+        switch(data.text){
+            case "tu tranquis":
+                response = "ya nada";
+                break;
+            case "yo no fui":
+                response = "tu bien sabes quien fue";
+                break;
+            case "te digo quien fue":
+                response = "no we, no me digas";
+                break;
+        }
+
+        if(response!==null){
+            console.log(data);            
+            bot.postMessage(data.channel, response);            
+        }
+
     }
 });
