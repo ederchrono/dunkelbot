@@ -46,13 +46,13 @@ bot.on('message', function (data) {
 
         if (message.substring(0, 19) == "<@U5F6MCKM4> topic ") {
             var command = "/topic";
-            var newTopic = message.substring(19);
+            var newTopic = '"'+message.substring(19)+'"';
 
             // slash commands hidden api!
             bot._api('chat.command',{
                 token: process.env.SLACK_TOKEN,
-                command: command,
                 channel: data.channel,
+                command: command,
                 text: newTopic
             })
 
