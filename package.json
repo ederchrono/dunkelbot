@@ -1,0 +1,19 @@
+{
+  "name": "fornuncabot",
+  "version": "1.0.0",
+  "description": "Slack bot for Fornunca",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "bot",
+    "slack"
+  ],
+  "author": "Eder Díaz",
+  "license": "ISC",
+  "dependencies": {
+    "@slack/client": "^3.9.0",
+    "botkit": "^0.5.4"
+  }
+}
