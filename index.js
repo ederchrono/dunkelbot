@@ -52,6 +52,12 @@ bot.on('message', function (data) {
             var command = botCommands[1];
             botCommands.splice(0,2);
             chronoCommand(data.channel, command, botCommands.join(' '));
+        }else if(botCommands[0]=="<@U5F6MCKM4>"){
+            //dunkelbot
+            var command = botCommands[1];
+            botCommands.splice(0,2);
+            if(command=="echo")
+                response = botCommands.join(' ');
         }
 
         if (response !== null) {
@@ -68,19 +74,14 @@ function chronoCommand(channel, chronoCommand, text){
         case 'topic':
             command='/topic'
             break;
-        case 'gif':
-            command='/giphy'
-            break;
     }
 
-    // if (message.substring(0, 19) == "<@U5F6MCKM4> topic ") {
     if(command!=null){
         // slash commands hidden api!
         admin._api('chat.command',{
             channel: channel,
             command: command,
-            text: text,
-            icon_emoji: ':robot_face:'
+            text: text
         }).fail(function(data) {
             console.log('Command error:');
             console.log(data);
