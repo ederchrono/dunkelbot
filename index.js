@@ -58,6 +58,9 @@ bot.on('message', function (data) {
             botCommands.splice(0,2);
             if(command=="echo")
                 response = botCommands.join(' ');
+            if(command=='azazel')
+                response = ":azazel::slowbody:";
+                
         }
 
         if (response !== null) {
