@@ -48,10 +48,10 @@ bot.on('message', function (data) {
         }
 
         var botCommands = data.text.split(" ");
-        if(botCommands[0]=="chronobot"){
+        if(botCommands[0]=="chrono"){
             var command = botCommands[1];
-            var text = botCommands.splice(0,2);
-            chronoCommand(data.channel, command,text.join(' '));
+            botCommands.splice(0,2);
+            chronoCommand(data.channel, command, botCommands.join(' '));
         }
 
         if (response !== null) {
