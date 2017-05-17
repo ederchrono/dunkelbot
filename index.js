@@ -1,5 +1,12 @@
 var Bot = require('slackbots');
-var fullAccessToken = process.env.FULL_ACCESS_TOKEN;
+
+// create admin
+var adminSettings = {
+    token: process.env.FULL_ACCESS_TOKEN,
+    as_user: true
+};
+var admin = new Bot(adminSettings);
+
 // create a bot
 var settings = {
     token: process.env.SLACK_TOKEN,
@@ -54,8 +61,7 @@ bot.on('message', function (data) {
             // console.log("text: "+newTopic);
 
             // slash commands hidden api!
-            bot._api('chat.command',{
-                token: fullAccessToken,
+            admin._api('chat.command',{
                 channel: data.channel,
                 command: command,
                 text: newTopic
