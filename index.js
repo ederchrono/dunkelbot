@@ -97,13 +97,9 @@ bot.on('message', function (data) {
 });
 
 function getDunkelCommand(channel, command) {
-    var query = {};
-    var fields = {
-        key: command
-    };
 
     console.log("looking for command: "+command);
-    DunkelbotCommand.findOne({key:command},(err, data) => {
+    DunkelbotCommand.findOne({key:""+command},(err, data) => {
 
         if (err) {
             return;
