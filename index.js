@@ -42,12 +42,18 @@ bot.on('message', function (data) {
         console.log(message);
 
         if (message.substring(0, 19) == "<@U5F6MCKM4> topic ") {
-            //response = "/topic "+message.substring(19);
+            command = "/topic"+message.substring(19);
+            // response = message.substring(19);
             //console.log(response);
             //https://slack.com/api/channels.setTopic
-            changeTopic(data.channel, message.substring(19));
-        }
 
+            bot.postMessage(data.channel, "Como ordene maestro", {
+                token: process.env.SLACK_TOKEN,
+                as_user: true,
+                command: command,
+                channel: data.channel
+            });
+        }
         if (response !== null) {
             console.log(data);
             bot.postMessage(data.channel, response, settings);
@@ -67,25 +73,3 @@ console.log('Listening on port ' + port); //Write to the console
 app.get('/', function (req, res) {
     res.send('Dunkel bot lives here!');
 });
-
-var request = require('request');
-function changeTopic(channel, newTopic) {
-    // https://slack.com/api/channels.setTopic
-    console.log("changing topic")
-
-    request.post(
-        'https://slack.com/api/channels.setTopic',
-        { 
-            json: { 
-                token: settings.token,
-                channel: channel,
-                topic: newTopic
-            } 
-        },
-        function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-                console.log(body)
-            }
-        }
-    );
-}
