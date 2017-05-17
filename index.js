@@ -48,12 +48,19 @@ bot.on('message', function (data) {
             var command = "/topic";
             var newTopic = '"'+message.substring(19)+'"';
 
+            console.log("sending command: ");
+            console.log("channel: "+data.channel);
+            console.log("command: "+command);
+            console.log("text: "+newTopic);
+
             // slash commands hidden api!
             bot._api('chat.command',{
-                token: process.env.SLACK_TOKEN,
                 channel: data.channel,
                 command: command,
                 text: newTopic
+            }).fail(function(data) {
+                console.log('Command error:');
+                console.log(data);
             })
 
             bot.postMessage(data.channel, "Como ordene maestro",  settings);
