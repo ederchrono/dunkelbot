@@ -47,6 +47,9 @@ bot.on('message', function (data) {
                 break;
         }
 
+        if(data.text==undefined)
+            return;
+
         var botCommands = data.text.split(" ");
         if(botCommands[0]=="chrobot"){
             var command = botCommands[1];
