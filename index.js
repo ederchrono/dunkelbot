@@ -38,7 +38,7 @@ bot.on('message', function(data) {
 
         if(response!==null){
             console.log(data);            
-            bot.postMessage(data.channel, response);            
+            bot.postMessage(data.channel, response, settings);            
         }
 
     }
