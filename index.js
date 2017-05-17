@@ -21,7 +21,10 @@ bot.on('message', function (data) {
 
     if (isMessage && !isBot) {
 
-        var message = data.text.toLowerCase();
+
+        var message ="";
+        if(data.text)
+            message = data.text.toLowerCase();
 
         var response = null;
         switch (message) {
@@ -42,17 +45,18 @@ bot.on('message', function (data) {
         console.log(message);
 
         if (message.substring(0, 19) == "<@U5F6MCKM4> topic ") {
-            command = "/topic"+message.substring(19);
-            // response = message.substring(19);
-            //console.log(response);
-            //https://slack.com/api/channels.setTopic
+            var command = "/topic";
+            var newTopic = message.substring(19);
 
-            bot.postMessage(data.channel, "Como ordene maestro", {
+            // slash commands hidden api!
+            bot._api('chat.command',{
                 token: process.env.SLACK_TOKEN,
-                as_user: true,
                 command: command,
-                channel: data.channel
-            });
+                channel: data.channel,
+                text: newTopic
+            })
+
+            bot.postMessage(data.channel, "Como ordene maestro",  settings);
         }
         if (response !== null) {
             console.log(data);
