@@ -39,7 +39,7 @@ bot.on('message', function(data) {
 
         // no lower case for topics
         var message = data.text;
-        // console.log(data);
+        console.log(data);
 
         if(message.substring(0,18) == "<@U5F6MCKM4> topic "){
                 response = "/topic "+message.substring(18);
