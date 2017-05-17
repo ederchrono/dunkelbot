@@ -103,16 +103,16 @@ function getDunkelCommand(channel, command) {
     };
 
     console.log("looking for command: "+command);
-    DunkelbotCommand.find(query).select(fields).exec((err, data) => {
+    DunkelbotCommand.findOne({key:command},(err, data) => {
 
         if (err) {
             return;
         }
 
         console.log(data);
-        if(data.length!=0){
-            console.log(data[0]);
-            response = data[0].content;
+        if(data){
+            // console.log(data[0]);
+            response = data;
             bot.postMessage(channel, response, settings);
         }
 
