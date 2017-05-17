@@ -3,7 +3,7 @@ var Bot = require('slackbots');
 // create a bot
 var settings = {
     token: process.env.SLACK_TOKEN,
-    name: 'Hello bot'
+    name: 'Bakman'
 };
 var bot = new Bot(settings);
 
@@ -15,8 +15,12 @@ bot.on('start', function() {
 
 bot.on('message', function(data) {
     // all ingoing events https://api.slack.com/rtm 
-    if(data.type=="message"){
+    var isMessage = data.type ==="message";
+    var isBot = data.subtype === "bot_message";
+    var isMe = data.username === settings.name;
+
+    if( isMessage && !isBot && !isMe ){
         console.log(data);
-        //bot.postMessage(data.channel, 'Hola');
+        bot.postMessage(data.channel, 'Hola');
     }
 });
