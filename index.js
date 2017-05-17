@@ -112,7 +112,7 @@ function getDunkelCommand(channel, command) {
         console.log(data);
         if(data){
             // console.log(data[0]);
-            response = data;
+            response = data.content;
             bot.postMessage(channel, response, settings);
         }
 
