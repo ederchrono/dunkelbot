@@ -14,6 +14,7 @@
   "author": "Eder Díaz",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.15.2",
     "slackbots": "^1.0.2"
   }
 }
