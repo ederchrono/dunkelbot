@@ -53,7 +53,7 @@ bot.on('message', function (data) {
 
         if (message.substring(0, 19) == "<@U5F6MCKM4> topic ") {
             var command = "/topic";
-            var newTopic = '"'+message.substring(19)+'"';
+            var newTopic = message.substring(19);
 
             // console.log("sending command: ");
             // console.log("channel: "+data.channel);
