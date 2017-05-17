@@ -39,15 +39,15 @@ bot.on('message', function(data) {
 
         // no lower case for topics
         var message = data.text;
-        console.log(data);
+        console.log(message);
 
-        if(message.substring(0,18) == "<@U5F6MCKM4> topic "){
-            response = "/topic "+message.substring(18);
+        if(message.substring(0,19) == "<@U5F6MCKM4> topic "){
+            response = "/topic "+message.substring(19);
             console.log(response);
         }
 
         if(response!==null){
-            //console.log(data);
+            console.log(data);
             bot.postMessage(data.channel, response, settings);            
         }
 
