@@ -51,3 +51,6 @@ var http = require('http').Server(app);
 http.listen(port); //Listen on the specified port
 console.log('Listening on port ' + port); //Write to the console
 
+app.get('/', function (req, res) {
+  res.send('Dunkel bot lives here!');
+});
