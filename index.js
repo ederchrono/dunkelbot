@@ -17,11 +17,10 @@ bot.on('message', function(data) {
     // all ingoing events https://api.slack.com/rtm 
     var isMessage = data.type ==="message";
     var isBot = data.subtype === "bot_message";
-    var isMe = data.username === settings.name;
 
-    console.log(data);         
+    console.log(data);
 
-    if( isMessage && !isBot && !isMe ){
+    if( isMessage && !isBot ){
 
         var response = null;
         switch(data.text){
