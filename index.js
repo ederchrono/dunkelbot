@@ -21,8 +21,10 @@ bot.on('message', function(data) {
 
     if( isMessage && !isBot ){
 
+        var message = data.text.toLowerCase();
+
         var response = null;
-        switch(data.text){
+        switch(message){
             case "tu tranquis":
                 response = "ya nada";
                 break;
@@ -33,6 +35,13 @@ bot.on('message', function(data) {
             case "te digo quien fue":
                 response = "no we, no me digas";
                 break;
+        }
+
+        // no lower case for topics
+        var message = data.text;
+
+        if(message.substring(0,17) == "@dunkelbot topic "){
+                response = "/topic "+message.substring(17);
         }
 
         if(response!==null){
