@@ -86,7 +86,7 @@ bot.on('message', function (data) {
                 let topic = botCommands.join(' ');
                 bot.postMessage(data.channel, "si siñor", settings);
                 
-                admin._api('channels.setTopic', {
+                bot._api('channels.setTopic', {
                     channel: data.channel,
                     topic: topic
                 }).fail(function (data) {
