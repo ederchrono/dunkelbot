@@ -82,6 +82,23 @@ bot.on('message', function (data) {
             else if (command == 'aprende') {
                 response = saveDunkelCommand(botCommands.join(' '));
             }
+            else if (command == 'topic') {
+                let topic = botCommands.join(' ');
+                bot.postMessage(data.channel, "si siñor", settings);
+                
+                admin._api('channels.setTopic', {
+                    channel: data.channel,
+                    topic: topic
+                }).fail(function (data) {
+                    console.log('Command error:');
+                    bot.postMessage(data.channel, "no pude :(", settings);
+                    
+                    console.log(data);
+                }).then(function (data) {
+                    console.log('Command success:');
+                    console.log(data);
+                })
+            }
             else {
                 // possible dunkel aprende command
                 getDunkelCommand(data.channel, command + ' ' + botCommands.join(' '));
