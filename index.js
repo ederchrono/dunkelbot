@@ -85,19 +85,23 @@ bot.on('message', function (data) {
             else if (command == 'topic') {
                 let topic = botCommands.join(' ');
                 bot.postMessage(data.channel, "si siñor", settings);
-                
-                bot._api('channels.setTopic', {
-                    channel: data.channel,
-                    topic: topic
-                }).fail(function (data) {
-                    console.log('Command error:');
-                    bot.postMessage(data.channel, "no pude :(", settings);
-                    
-                    console.log(data);
-                }).then(function (data) {
-                    console.log('Command success:');
-                    console.log(data);
-                })
+
+                setTimeout(function () {
+                    bot._api('channels.setTopic', {
+                        channel: data.channel,
+                        topic: topic
+                    }).fail(function (data) {
+                        console.log('Command error:');
+                        bot.postMessage(data.channel, "no pude :(", settings);
+
+                        console.log(data);
+                    }).then(function (data) {
+                        console.log('Command success:');
+                        console.log(data);
+                    })
+                }, 250);
+
+
             }
             else {
                 // possible dunkel aprende command
@@ -115,8 +119,8 @@ bot.on('message', function (data) {
 
 function getDunkelCommand(channel, command) {
 
-    console.log("looking for command: "+command);
-    DunkelbotCommand.find({keyPhrase:command}).exec( (err, data) => {
+    console.log("looking for command: " + command);
+    DunkelbotCommand.find({ keyPhrase: command }).exec((err, data) => {
 
         if (err) {
             return;
@@ -125,8 +129,8 @@ function getDunkelCommand(channel, command) {
         var numResp = data.length;
         console.log(numResp + ' respuestas posibles');
 
-        if(numResp>0){
-            var respIndex = Math.floor(Math.random()*numResp);
+        if (numResp > 0) {
+            var respIndex = Math.floor(Math.random() * numResp);
             // console.log(data[0]);
             response = data[respIndex].content;
             bot.postMessage(channel, response, settings);
@@ -143,9 +147,9 @@ function saveDunkelCommand(text) {
     var command = new DunkelbotCommand();
     var words = params[0].split(" ").length;
 
-    keyPhrase = params[0];    
-    if(words==1)
-        keyPhrase = params[0]+' ';
+    keyPhrase = params[0];
+    if (words == 1)
+        keyPhrase = params[0] + ' ';
     command.keyPhrase = keyPhrase;
     command.content = params[1];
     command.save();
